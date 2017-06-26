@@ -1,0 +1,30 @@
+{
+  "paths": {
+    "sources": "./src/AppBundle/Resources/web/",
+    "dist": "web/dist/AppBundle/"
+  },
+  "script": {
+    "install": {
+      "direct": {
+        "lib" : [
+        ]
+      },
+      "minify": {
+        "lib": [
+        ]
+      }
+    }
+  },
+  "style": {
+    "install": {
+      "direct": [
+      ],
+      "minify": {
+      },
+      "fonts": [
+      ],
+      "images": {
+      }
+    }
+  }
+}
