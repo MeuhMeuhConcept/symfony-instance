@@ -7,6 +7,9 @@
             <p>
                 Code version : <span class="font-weight-blod">{{ code_version }}</span>
             </p>
+            <p>
+                Database version : <span class="font-weight-blod">{{ db_version.name|default('no version') }}</span>
+            </p>
         </div>
     </div>
 {% endblock %}
