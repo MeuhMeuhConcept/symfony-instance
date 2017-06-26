@@ -1,0 +1,57 @@
+data:
+    image: busybox
+    volumes:
+        - .:/srv
+        - ./docker/conf/nginx_vhost.conf:/etc/nginx/sites-enabled/my_app.conf
+        - ./docker/.home-developer:/home/developer
+        - /var/lib/mysql
+
+webserver:
+    image: greg0ire/nginx
+    volumes_from:
+        - data
+    links:
+        - appserver
+    env_file:
+        - ./docker/docker-compose.env
+    environment:
+        - DNSDOCK_IMAGE=web
+    restart: always
+
+appserver:
+    image: meuhmeuhconcept/php-fpm
+    volumes_from:
+        - data
+    links:
+        - database
+    env_file:
+        - ./docker/docker-compose.env
+    environment:
+        - DNSDOCK_IMAGE=app
+    restart: always
+
+console:
+    image: meuhmeuhconcept/php-console
+    volumes_from:
+        - data
+    volumes:
+        - $SSH_AUTH_SOCK:/tmp/agent.sock
+    links:
+        - database
+    env_file:
+        - ./docker/docker-compose.env
+    environment:
+        - DNSDOCK_IMAGE=console
+        - SSH_AUTH_SOCK=/tmp/agent.sock
+    working_dir: /srv
+    restart: always
+
+database:
+    image: mariadb:10.0
+    volumes_from:
+        - data
+    env_file:
+        - ./docker/docker-compose.env
+    environment:
+        - DNSDOCK_IMAGE=db
+    restart: always
