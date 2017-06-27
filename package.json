@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/MeuhMeuhConcept/symfony-instance#readme",
   "dependencies": {
-    "bootstrap": "^4.0.0-alpha.6",
+    "bootstrap": "^4.0.0-alpha.6"
+  },
+  "devDependencies": {
     "del": "^3.0.0",
     "event-stream": "^3.3.4",
     "gulp": "^3.9.1",
