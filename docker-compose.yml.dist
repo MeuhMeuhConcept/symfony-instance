@@ -2,14 +2,14 @@ data:
     image: busybox
     volumes:
         - .:/srv
-        - ./docker/conf/nginx_vhost.conf:/etc/nginx/sites-enabled/my_app.conf
         - ./docker/.home-developer:/home/developer
-        - /var/lib/mysql
 
 webserver:
-    image: greg0ire/nginx
+    image: nginx:stable-alpine
     volumes_from:
         - data
+    volumes:
+        - ./docker/conf/nginx_vhost.conf:/etc/nginx/conf.d/default.conf
     links:
         - appserver
     env_file:
@@ -48,8 +48,8 @@ console:
 
 database:
     image: mariadb:10.0
-    volumes_from:
-        - data
+    volumes:
+        - /var/lib/mysql
     env_file:
         - ./docker/docker-compose.env
     environment:
